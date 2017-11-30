@@ -7,6 +7,10 @@
         {
             "name": "mhavelant",
             "email": "mhavelant@brainsum.com"
+        },
+        {
+            "name": "aherczeg",
+            "email": "aherczeg@brainsum.com"
         }
     ],
     "require": {}

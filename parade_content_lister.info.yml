@@ -2,12 +2,12 @@ name: 'Parade content lister'
 description: 'Creates a listing page for parade onepage content using a responsive card layout.'
 type: module
 core: 8.x
-dependencies:
-  - field
-  - geocoder_field
-  - node
-  - text
-  - user
-  - views
 version: '1.0'
 configure: parade_content_lister.admin_settings
+
+dependencies:
+  - drupal:field
+  - drupal:node
+  - drupal:text
+  - drupal:user
+  - drupal:views
