@@ -146,7 +146,7 @@ class CardThumbnailBuilder {
       else {
         $this->logger->error('File with ID @fid does not exist for node with ID @nid', [
           '@fid' => $fileId,
-          '@nid' => $node->id(),
+          '@nid' => (NULL === $node->id()) ? '"N/A (new content)"' : $node->id(),
         ]);
       }
     }
@@ -208,7 +208,7 @@ class CardThumbnailBuilder {
           $this->logger->error('File with ID @fid does not exist for header paragraph with ID @pid in node with ID @nid.', [
             '@fid' => $fileId,
             '@pid' => $headerParagraph->id(),
-            '@nid' => $node->id(),
+            '@nid' => (NULL === $node->id()) ? '"N/A (new content)"' : $node->id(),
           ]);
         }
       }
@@ -228,20 +228,22 @@ class CardThumbnailBuilder {
       $this->createDerivative($derivativePath);
     }
 
-    $thumb_height = $this->moduleConfig->get('pcl_thumbnail_height') . 'px';
-    $imageLink = $node->toLink(
-      Markup::create($thumbnailTag),
-      'edit-form',
-      [
-        'attributes' => [
-          'class' => $classes,
-          'style' => "height: $thumb_height;",
-        ],
-      ]
-    )->toString()->getGeneratedLink();
+    // Not needed, add wrapper in view.
+    // @todo: add wrapper to default view.
+//    $thumb_height = $this->moduleConfig->get('pcl_thumbnail_height') . 'px';
+//    $imageLink = $node->toLink(
+//      Markup::create($thumbnailTag),
+//      'edit-form',
+//      [
+//        'attributes' => [
+//          'class' => $classes,
+//          'style' => "height: $thumb_height;",
+//        ],
+//      ]
+//    )->toString()->getGeneratedLink();
 
     $node->get('field_computed_image')->setValue([
-      'value' => $imageLink,
+      'value' => $thumbnailTag,
       'format' => 'full_html',
     ]);
   }
