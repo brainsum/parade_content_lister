@@ -1,0 +1,10 @@
+/* line 1, ../sass/parade_content_lister_toolbar.scss */
+.toolbar-icon.toolbar-icon-parade-content-lister-adapstyle-content-page:before {
+  background-image: url(../images/file-default.svg);
+}
+
+/* line 5, ../sass/parade_content_lister_toolbar.scss */
+.toolbar-icon.toolbar-icon-parade-content-lister-adapstyle-content-page:active:before,
+.toolbar-icon.toolbar-icon-parade-content-lister-adapstyle-content-page.is-active:before {
+  background-image: url(../images/file-default.svg);
+}

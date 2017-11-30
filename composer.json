@@ -1,0 +1,13 @@
+{
+    "name": "drupal/parade_content_lister",
+    "description": "Card style lister for content.",
+    "license": "LGPL-3.0",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "mhavelant",
+            "email": "mhavelant@brainsum.com"
+        }
+    ],
+    "require": {}
+}

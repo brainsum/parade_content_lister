@@ -1,0 +1,4 @@
+services:
+  parade_content_lister.card_thumbnail_builder:
+    class: Drupal\parade_content_lister\Service\CardThumbnailBuilder
+    arguments: ['@entity_type.manager', '@config.factory', '@image.factory']

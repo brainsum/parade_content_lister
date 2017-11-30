@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\node\NodeInterface;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function parade_content_lister_preprocess_page(&$variables) {
+  $routeName = \Drupal::routeMatch()->getRouteName();
+  if ($routeName === 'view.parade_content.page_1') {
+    $variables['#attached']['library'][] = 'parade_content_lister/parade_content_lister.view.design';
+  }
+}
+
+/**
+ * Adds Content list button to admin toolbar.
+ */
+function parade_content_lister_toolbar_alter(&$items) {
+  $items['administration']['#attached']['library'][] = 'parade_content_lister/parade_content_lister_toolbar';
+}
+
+/**
+ * Adds content add link to top of view.
+ */
+function parade_content_lister_preprocess_views_view(&$variables) {
+  $content_type = \Drupal::config('parade_content_lister.settings')
+    ->get('pcl_content_type');
+  if ($variables['view']->storage->id() === 'parade_content') {
+    $link = Link::createFromRoute(
+      '+ ' . t('Add new page'),
+      'node.add',
+      [
+        'node_type' => $content_type,
+      ],
+      [
+        'attributes' => [
+          'classes' => [
+            'add-more-link',
+          ],
+        ],
+      ]
+    );
+
+    if (!isset($variables['rows'][0]['#rows'])) {
+      $variables['rows'][0]['#rows'] = $link;
+    }
+    else {
+      array_unshift($variables['rows'][0]['#rows'], $link);
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function parade_content_lister_node_presave(NodeInterface $node) {
+  /** @var \Drupal\parade_content_lister\Service\CardThumbnailBuilder $cardThumbnailBuilder */
+  $cardThumbnailBuilder = \Drupal::service('parade_content_lister.card_thumbnail_builder');
+  // @todo: Check node type?
+  $cardThumbnailBuilder->updateNode($node);
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function parade_content_lister_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  $config = \Drupal::config('parade_content_lister.settings');
+  // (Example assuming a view with an exposed filter on node title.)
+  // If the input for the title filter is a positive integer, filter against
+  // node ID instead of node title.
+  if ($view->id() === 'parade_content') {
+    // Traverse through the 'where' part of the query.
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as &$condition) {
+        // If this is the part of the query filtering on title, chang the
+        // condition to filter on node ID.
+        if ($condition['field'] === 'node_field_data.type') {
+          $content_type = $config->get('pcl_content_type');
+          if (!isset($content_type)) {
+            $content_type = 'page';
+          }
+          if ($content_type !== '-none-') {
+            $condition['value'] = $content_type;
+          }
+        }
+      }
+    }
+  }
+}

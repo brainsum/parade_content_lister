@@ -1,0 +1,10 @@
+parade_content_lister.view.design:
+    version: 1.0-beta1
+    css:
+      theme:
+        styles/css/parade_content_lister.css: {}
+parade_content_lister_toolbar:
+    version: VERSION
+    css:
+      component:
+        styles/css/parade_content_lister_toolbar.css: {}

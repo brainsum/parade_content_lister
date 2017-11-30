@@ -1,0 +1,13 @@
+parade_content_lister.adapstyle_content_page:
+  title: 'Content list'
+  route_name: view.parade_content.page_1
+  description: 'Link to the custom content view.'
+  parent: system.admin
+  weight: -100
+
+parade_content_lister.admin_settings:
+  title: 'Parade content lister settings'
+  description: 'Set content type for the list and or regenerate thumbnail images.'
+  parent: system.admin_config_content
+  route_name: parade_content_lister.admin_settings
+  weight: 100

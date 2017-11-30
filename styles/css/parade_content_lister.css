@@ -1,0 +1,401 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans/OpenSans.eot");
+  src: url("../fonts/opensans/OpenSans.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans/OpenSans.woff2") format("woff2"), url("../fonts/opensans/OpenSans.woff") format("woff"), url("../fonts/opensans/OpenSans.ttf") format("truetype"), url("../fonts/opensans/OpenSans.svg#OpenSans") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans/OpenSans-Extrabold.eot");
+  src: url("../fonts/opensans/OpenSans-Extrabold.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Extrabold.woff2") format("woff2"), url("../fonts/opensans/OpenSans-Extrabold.woff") format("woff"), url("../fonts/opensans/OpenSans-Extrabold.ttf") format("truetype"), url("../fonts/opensans/OpenSans-Extrabold.svg#OpenSans-Extrabold") format("svg");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans/OpenSans-Light.eot");
+  src: url("../fonts/opensans/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Light.woff2") format("woff2"), url("../fonts/opensans/OpenSans-Light.woff") format("woff"), url("../fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("../fonts/opensans/OpenSans-Light.svg#OpenSans-Light") format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans/OpenSans-Semibold.eot");
+  src: url("../fonts/opensans/OpenSans-Semibold.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Semibold.woff2") format("woff2"), url("../fonts/opensans/OpenSans-Semibold.woff") format("woff"), url("../fonts/opensans/OpenSans-Semibold.ttf") format("truetype"), url("../fonts/opensans/OpenSans-Semibold.svg#OpenSans-Semibold") format("svg");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans/OpenSans-Bold.eot");
+  src: url("../fonts/opensans/OpenSans-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Bold.woff2") format("woff2"), url("../fonts/opensans/OpenSans-Bold.woff") format("woff"), url("../fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("../fonts/opensans/OpenSans-Bold.svg#OpenSans-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+/* line 4, ../sass/parade_content_lister.scss */
+.view-id-parade_content {
+  background-color: #e0dfda;
+}
+/* line 6, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters {
+  background-color: #fff;
+}
+/* line 12, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters form {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+/* line 14, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters form .form-item {
+  float: none;
+  display: inline-block;
+}
+/* line 30, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters label {
+  color: gray;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Open Sans", Arial;
+}
+/* line 37, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters select {
+  font-style: normal;
+  text-align: left;
+  text-align-last: left;
+  outline: 0;
+  background-clip: padding-box;
+  font-family: "Open Sans", Arial;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+/* line 46, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters select,
+.view-id-parade_content .view-filters input {
+  color: gray;
+  border: 1px solid #cdcdcd;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  height: 30px;
+}
+/* line 57, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters input {
+  margin-top: 0px;
+}
+/* line 60, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters .form-actions {
+  clear: none;
+  display: inline-block;
+}
+/* line 63, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters .form-actions .form-submit {
+  border-color: #dddddd;
+  background: #62b3e5;
+  font-weight: 600;
+  color: white;
+  padding: 6px 31px;
+  border-width: 0px;
+  border-radius: 3px;
+  border-style: solid;
+  font-size: 13px;
+  height: 30px;
+  width: 90px;
+  margin-top: 8px;
+  transition: all 0.2s ease-in-out;
+}
+/* line 78, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-filters .form-actions .form-submit:hover {
+  background-color: #2492d7;
+}
+/* line 85, ../sass/parade_content_lister.scss */
+.view-id-parade_content .views-row {
+  padding: 20px 24px;
+  box-sizing: border-box;
+}
+/* line 89, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+/* line 95, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .node--unpublished {
+  padding: 0px;
+}
+/* line 98, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .content-thumbnail {
+  max-width: 348px;
+  border-bottom: 1px solid #ebebeb;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+/* line 108, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .content-thumbnail a {
+  display: block;
+  overflow: hidden;
+  background-color: #f0f1f1;
+  border-bottom: none;
+}
+/* line 115, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .content-thumbnail video {
+  width: 100%;
+  max-width: 348px;
+}
+/* line 119, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .content-thumbnail img {
+  display: block;
+  margin: 0;
+}
+/* line 124, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .content-thumbnail a.vertically-centered img, .view-id-parade_content .view-content .content-thumbnail a.vertically-centered video {
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+/* line 134, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .content-thumbnail .field--type-image {
+  float: none;
+  margin-right: 0;
+}
+/* line 139, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper {
+  max-width: 348px;
+  background-color: #fff;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+/* line 150, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info {
+  line-height: normal;
+  padding: 25px;
+  color: #565656;
+  font-family: "Open Sans", Arial;
+}
+/* line 155, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info span {
+  float: left;
+  width: 100%;
+  font-family: "Open Sans", Arial;
+}
+/* line 161, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info span.content-title a {
+  padding-bottom: 20px;
+  color: #565656;
+  font-size: 16px;
+  display: block;
+  border-bottom: none;
+}
+/* line 173, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .author span.field--type-entity-reference span,
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .author a {
+  color: #565656;
+  border-bottom: none;
+  padding-left: 5px;
+  font-family: "Open Sans", Arial;
+}
+/* line 181, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .author,
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .updated {
+  font-size: 12px;
+}
+/* line 187, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .content-title span {
+  display: block;
+}
+/* line 191, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .content-publication {
+  font-size: 12px;
+  text-transform: uppercase;
+  padding-top: 10px;
+}
+/* line 195, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .content-publication.Published {
+  color: #2dc257;
+}
+/* line 198, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-info .content-publication.Unpublished {
+  color: #c1c1c1;
+}
+/* line 203, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links {
+  padding: 0px 25px 20px 25px;
+  display: inline-block;
+}
+/* line 206, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .edit a {
+  display: block;
+  border-color: #dddddd;
+  background-color: #62b3e5;
+  background-image: none;
+  color: white;
+  font-weight: normal;
+  padding: 5px 27px;
+  font-family: "Open Sans", Arial;
+  font-style: normal;
+  font-size: 13px;
+  border-radius: 3px;
+  font-weight: 600;
+  height: 20px;
+  transition: all 0.2s ease-in-out;
+}
+/* line 222, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .edit a:hover {
+  background-color: #2492d7;
+}
+/* line 226, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .delete a,
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .preview a {
+  text-indent: -100px;
+  background-repeat: no-repeat;
+  background-color: #bdbdbd;
+  display: block;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-bottom: none;
+  background-position: center;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+}
+/* line 240, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .delete a:hover,
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .preview a:hover {
+  background-color: #979797;
+}
+/* line 244, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .preview a {
+  background-image: url(../images/eye.png);
+}
+/* line 247, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links .delete a {
+  background-image: url(../images/trash.png);
+}
+/* line 250, ../sass/parade_content_lister.scss */
+.view-id-parade_content .view-content .grid-expander-wrapper .content-links span {
+  border-bottom: none;
+  display: block;
+  float: left;
+  padding-right: 5px;
+  margin-top: 25px;
+}
+/* line 260, ../sass/parade_content_lister.scss */
+.view-id-parade_content nav.pager {
+  padding-bottom: 20px;
+}
+/* line 262, ../sass/parade_content_lister.scss */
+.view-id-parade_content nav.pager ul {
+  margin-top: 25px;
+}
+/* line 265, ../sass/parade_content_lister.scss */
+.view-id-parade_content nav.pager ul li a {
+  text-decoration: none;
+  font-family: "Open Sans", Arial;
+  font-size: 13px;
+  font-weight: bold;
+  color: gray;
+  border-bottom: none;
+  transition: all 0.2s ease-in-out;
+}
+/* line 274, ../sass/parade_content_lister.scss */
+.view-id-parade_content nav.pager ul li a:hover {
+  color: #62b3e5;
+}
+/* line 279, ../sass/parade_content_lister.scss */
+.view-id-parade_content nav.pager ul li.is-active a {
+  color: #62b3e5;
+}
+/* line 286, ../sass/parade_content_lister.scss */
+.view-id-parade_content .views-col {
+  width: 33%;
+}
+/* line 289, ../sass/parade_content_lister.scss */
+.view-id-parade_content .views-row {
+  display: inline-block;
+  width: 33%;
+}
+
+@media screen and (max-width: 1100px) {
+  /* line 296, ../sass/parade_content_lister.scss */
+  .view-id-parade_content .views-row {
+    width: 49%;
+  }
+}
+@media screen and (max-width: 760px) {
+  /* line 302, ../sass/parade_content_lister.scss */
+  .view-id-parade_content .views-row {
+    width: 100%;
+  }
+}
+/* line 314, ../sass/parade_content_lister.scss */
+body.path-parade-content #main-wrapper {
+  max-width: 100%;
+}
+/* line 317, ../sass/parade_content_lister.scss */
+body.path-parade-content #main-wrapper .main-content .section {
+  padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+  /* line 336, ../sass/parade_content_lister.scss */
+  .view-id-parade_content .view-filters .form-item-langcode {
+    clear: both;
+  }
+}
+@media screen and (max-width: 950px) {
+  /* line 343, ../sass/parade_content_lister.scss */
+  .view-id-parade_content .view-filters form {
+    width: calc(100% - 100px);
+    text-align: center;
+  }
+}
+@media screen and (max-width: 400px) {
+  /* line 354, ../sass/parade_content_lister.scss */
+  .view-id-parade_content .view-filters form .form-item-langcode select {
+    width: 226px;
+  }
+}
+/* line 366, ../sass/parade_content_lister.scss */
+.views-row:first-child {
+  width: 100%;
+  text-align: center;
+}
+/* line 369, ../sass/parade_content_lister.scss */
+.views-row:first-child a {
+  border-bottom: none;
+  text-decoration: none;
+  font-family: "Open Sans", Arial;
+  font-size: 13px;
+  color: #62b3e5;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+}
+/* line 378, ../sass/parade_content_lister.scss */
+.views-row:first-child a:hover {
+  color: #2492d7;
+}
+
+/* line 383, ../sass/parade_content_lister.scss */
+#main {
+  margin-bottom: 0px;
+}
