@@ -243,7 +243,7 @@ class CardThumbnailBuilder {
 //    )->toString()->getGeneratedLink();
 
     $node->get('field_computed_image')->setValue([
-      'value' => $thumbnailTag,
+      'value' => Markup::create($thumbnailTag),
       'format' => 'full_html',
     ]);
   }
