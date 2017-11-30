@@ -85,15 +85,20 @@ class ModuleConfigurationForm extends ConfigFormBase {
       $config->get('pcl_vertical_center') !== $form_state->getValue('pcl_vertical_center')) {
       $regen = TRUE;
     }
+    $contentType = $form_state->getValue('pcl_content_type');
     $this->configFactory()->getEditable('parade_content_lister.settings')
       // Set the submitted configuration setting.
-      ->set('pcl_content_type', $form_state->getValue('pcl_content_type'))
+      ->set('pcl_content_type', $contentType)
       ->set('pcl_thumbnail_height', $form_state->getValue('pcl_thumbnail_height'))
       ->set('pcl_vertical_center', $form_state->getValue('pcl_vertical_center'))
       ->save();
 
     if ($regen || $form_state->getValue('pcl_regenerate_thumbnails')) {
-      $nids = \Drupal::entityQuery('node')->condition('type', 'campaign')->execute();
+      // Fall back to the parade demo type.
+      if (NULL === $contentType) {
+        $contentType = 'parade_onepage';
+      }
+      $nids = \Drupal::entityQuery('node')->condition('type', $contentType)->execute();
       $batch = [
         'title' => t('Generating thumbnails...'),
         'init_message' => t('Initializing.'),
