@@ -5,6 +5,7 @@ namespace Drupal\parade_content_lister\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageFactory;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\node\NodeInterface;
 
@@ -48,6 +49,13 @@ class CardThumbnailBuilder {
   protected $cardImageStyle;
 
   /**
+   * Logger channel for the module.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
    * CardThumbnailBuilder constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -56,17 +64,22 @@ class CardThumbnailBuilder {
    *   The config factory.
    * @param \Drupal\Core\Image\ImageFactory $imageFactory
    *   Image factory service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
+   *   Logger channel factory.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
     ConfigFactoryInterface $configFactory,
-    ImageFactory $imageFactory
+    ImageFactory $imageFactory,
+    LoggerChannelFactoryInterface $loggerChannelFactory
   ) {
     $this->moduleConfig = $configFactory->get('parade_content_lister.settings');
     $this->entityTypeManager = $entityTypeManager;
     $this->imageFactory = $imageFactory;
+    $this->logger = $loggerChannelFactory->get('parade_content_lister');
+
     $this->cardImageStyle = $this->entityTypeManager->getStorage('image_style')->load(static::IMAGE_STYLE);
 
     $this->createDefaultDerivative();
@@ -116,24 +129,35 @@ class CardThumbnailBuilder {
     }
 
     $derivativePath = NULL;
+    $headerParagraph = NULL;
 
     if (isset($thumbnail[0])) {
+      $fileId = $thumbnail[0]['target_id'];
       /** @var \Drupal\file\FileInterface $file */
       $file = $this->entityTypeManager->getStorage('file')
-        ->load([0]['target_id']);
-      $path = $file->getFileUri();
-      $url = $this->cardImageStyle->buildUrl($path);
-      $thumbnailTag = "<img src='$url'/>";
-      $derivativePath = $path;
+        ->load($fileId);
+
+      if (NULL !== $file) {
+        $path = $file->getFileUri();
+        $url = $this->cardImageStyle->buildUrl($path);
+        $thumbnailTag = "<img src='$url'/>";
+        $derivativePath = $path;
+      }
+      else {
+        $this->logger->error('File with ID @fid does not exist for node with ID @nid', [
+          '@fid' => $fileId,
+          '@nid' => $node->id(),
+        ]);
+      }
     }
     else {
       $sections = $node->get('parade_onepage_sections')->getValue();
       foreach ($sections as $key => $value) {
-        $revision_ids[] = $value['target_revision_id'];
+        $revisionIds[] = $value['target_revision_id'];
       }
-      if (isset($revision_ids)) {
+      if (isset($revisionIds)) {
         $query = $this->entityTypeManager->getStorage('paragraph')->getQuery();
-        $query->condition('revision_id', $revision_ids, 'IN');
+        $query->condition('revision_id', $revisionIds, 'IN');
         $query->condition('type', 'header');
         $ent = $query->execute();
         foreach ($ent as $key => $value) {
@@ -156,34 +180,46 @@ class CardThumbnailBuilder {
         }
       }
 
-      if (isset($headerParagraph)) {
-        $header_bg = $headerParagraph->get('parade_background')->getValue();
+      if (NULL !== $headerParagraph) {
+        $headerBackground = $headerParagraph->get('parade_background')->getValue();
+        $fileId = $headerBackground[0]['target_id'];
         /** @var \Drupal\file\FileInterface $file */
         $file = $this->entityTypeManager->getStorage('file')
-          ->load($header_bg[0]['target_id']);
-        $path = $file->getFileUri();
-        $type = $file->getMimeType();
-        $type = explode('/', $type)[0];
+          ->load($fileId);
 
-        if ($type === 'video') {
-          $path = file_create_url($path);
-          $thumbnailTag = '<video muted="" loop="" playsinline="">';
-          $thumbnailTag .= "<source src='$path' type='video/mp4' codecs='avc1.42E01E, mp4a.40.2'>";
-          $thumbnailTag .= '</video>';
+        if (NULL !== $file) {
+          $path = $file->getFileUri();
+          $type = $file->getMimeType();
+          $type = explode('/', $type)[0];
+
+          if ($type === 'video') {
+            $path = file_create_url($path);
+            $thumbnailTag = '<video muted="" loop="" playsinline="">';
+            $thumbnailTag .= "<source src='$path' type='video/mp4' codecs='avc1.42E01E, mp4a.40.2'>";
+            $thumbnailTag .= '</video>';
+          }
+          else {
+            $url = $this->cardImageStyle->buildUrl($path);
+            $thumbnailTag = "<img src='$url'/>";
+            $derivativePath = $path;
+          }
         }
         else {
-          $url = $this->cardImageStyle->buildUrl($path);
-          $thumbnailTag = "<img src='$url'/>";
-          $derivativePath = $path;
+          $this->logger->error('File with ID @fid does not exist for header paragraph with ID @pid in node with ID @nid.', [
+            '@fid' => $fileId,
+            '@pid' => $headerParagraph->id(),
+            '@nid' => $node->id(),
+          ]);
         }
       }
-      else {
-        $classes[] = 'vertically-centered';
-        $image = drupal_get_path('module', 'parade_content_lister') . '/styles/images/default-thumbnail.png';
-        $url = $this->cardImageStyle->buildUrl($image);
-        $thumbnailTag = "<img src='$url'/>";
-        $derivativePath = $image;
-      }
+    }
+
+    if (empty($thumbnailTag)) {
+      $classes[] = 'vertically-centered';
+      $image = drupal_get_path('module', 'parade_content_lister') . '/styles/images/default-thumbnail.png';
+      $url = $this->cardImageStyle->buildUrl($image);
+      $thumbnailTag = "<img src='$url'/>";
+      $derivativePath = $image;
     }
 
     if (NULL !== $derivativePath) {
