@@ -5,11 +5,12 @@
  * Module file.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\views\ViewExecutable;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -30,6 +31,8 @@ function parade_content_lister_toolbar_alter(&$items) {
 
 /**
  * Adds content add link to top of view.
+ *
+ * @todo - refactor.
  */
 function parade_content_lister_preprocess_views_view(&$variables) {
   $content_type = \Drupal::config('parade_content_lister.settings')
@@ -55,6 +58,36 @@ function parade_content_lister_preprocess_views_view(&$variables) {
     }
     else {
       array_unshift($variables['rows'][0]['#rows'], $link);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Add link to thumbnail for 'parede_content' view.
+ *
+ * @todo - refactor.
+ */
+function parade_content_lister_preprocess_views_view_field(&$variables) {
+  if ('parade_content' === $variables['view']->id() && 'page_1' === $variables['view']->current_display) {
+    if ('field_computed_image' === $variables['field']->field) {
+      $config = \Drupal::configFactory()->get('parade_content_lister.settings');
+      $classes = [];
+      if ($config->get('pcl_vertical_center') === 1) {
+        $classes[] = 'vertically-centered';
+      }
+      $thumb_height = $config->get('pcl_thumbnail_height') . 'px';
+      $url = Url::fromRoute('entity.node.edit_form', ['node' => $variables['row']->nid]);
+      $link_options = [
+        'language' => \Drupal::languageManager()->getLanguage($variables['row']->node_field_data_langcode),
+        'attributes' => [
+          'class' => $classes,
+          'style' => "height: $thumb_height;",
+        ],
+      ];
+      $url->setOptions($link_options);
+      $variables['output'] = Markup::create(Link::fromTextAndUrl($variables['output'], $url)->toString());
     }
   }
 }
