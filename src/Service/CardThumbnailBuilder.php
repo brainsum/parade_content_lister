@@ -217,7 +217,7 @@ class CardThumbnailBuilder {
     if (empty($thumbnailTag)) {
       $classes[] = 'vertically-centered';
       $imageUrl = '/' . drupal_get_path('module', 'parade_content_lister') . '/styles/images/default-thumbnail.png';
-      $thumbnailTag = '<img src="$imageUrl" />';
+      $thumbnailTag = '<img src="' . $imageUrl . '" />';
       $derivativePath = $imageUrl;
     }
 
