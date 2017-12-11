@@ -118,7 +118,6 @@ class CardThumbnailBuilder {
    *   The node to be updated.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
   public function updateNode(NodeInterface $node) {
