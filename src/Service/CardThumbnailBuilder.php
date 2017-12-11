@@ -260,7 +260,6 @@ class CardThumbnailBuilder {
    *   ?
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
@@ -277,6 +276,7 @@ class CardThumbnailBuilder {
     foreach ($languages as $language) {
       $node = $defaultNode->getTranslation($language->getId());
       $this->updateNode($node);
+      $node->setNewRevision(FALSE);
       $node->save();
     }
     return TRUE;
