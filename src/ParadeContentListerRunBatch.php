@@ -18,14 +18,12 @@ class ParadeContentListerRunBatch {
    *   Context.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
   public static function generateImages($contentType, array &$context) {
     /** @var \Drupal\parade_content_lister\Service\CardThumbnailBuilder $cardThumbnailBuilder */
     $cardThumbnailBuilder = \Drupal::service('parade_content_lister.card_thumbnail_builder');
-    $results = [];
     $limit = 20;
 
     if (empty($context['sandbox'])) {
@@ -37,14 +35,13 @@ class ParadeContentListerRunBatch {
     foreach ($nids as $nid) {
       $context['sandbox']['progress']++;
       $context['sandbox']['current_id'] = $nid;
-      $results[] = $cardThumbnailBuilder->build($nid);
+      $context['results'][] = $cardThumbnailBuilder->build($nid);
     }
 
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
       $context['message'] = 'Generated: ' . $context['sandbox']['progress'] . '/' . $context['sandbox']['max'];
     }
-    $context['results'] = $results;
   }
 
   /**
@@ -57,7 +54,7 @@ class ParadeContentListerRunBatch {
       $message = \Drupal::translation()->formatPlural(
         // Use \count instead of count for opcode optimization.
         \count($results),
-        'Thumbnail generatedOne post processed.', '@count thumbnails generated.'
+        'One thumbnail generated/checked.', '@count thumbnails generated/checked.'
       );
     }
     else {
