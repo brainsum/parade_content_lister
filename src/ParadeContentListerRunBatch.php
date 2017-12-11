@@ -12,8 +12,8 @@ class ParadeContentListerRunBatch {
   /**
    * Batch op to save images.
    *
-   * @param array $nids
-   *   Gets node ids.
+   * @param string $contentType
+   *   Get node bundle.
    * @param array $context
    *   Context.
    *
@@ -22,16 +22,28 @@ class ParadeContentListerRunBatch {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
-  public static function generateImages(array $nids, array &$context) {
+  public static function generateImages($contentType, array &$context) {
     /** @var \Drupal\parade_content_lister\Service\CardThumbnailBuilder $cardThumbnailBuilder */
     $cardThumbnailBuilder = \Drupal::service('parade_content_lister.card_thumbnail_builder');
-    $message = 'Generating...';
     $results = [];
+    $limit = 20;
+
+    if (empty($context['sandbox'])) {
+      $context['sandbox']['progress'] = 0;
+      $context['sandbox']['current_id'] = 0;
+      $context['sandbox']['max'] = db_query('SELECT COUNT(DISTINCT nid) FROM {node} WHERE type=:type', [':type' => $contentType])->fetchField();
+    }
+    $nids = \Drupal::entityQuery('node')->condition('type', $contentType)->range(0, $limit)->execute();
     foreach ($nids as $nid) {
+      $context['sandbox']['progress']++;
+      $context['sandbox']['current_id'] = $nid;
       $results[] = $cardThumbnailBuilder->build($nid);
     }
 
-    $context['message'] = $message;
+    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+      $context['message'] = 'Generated: ' . $context['sandbox']['progress'] . '/' . $context['sandbox']['max'];
+    }
     $context['results'] = $results;
   }
 

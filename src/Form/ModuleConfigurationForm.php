@@ -98,15 +98,15 @@ class ModuleConfigurationForm extends ConfigFormBase {
       if (NULL === $contentType) {
         $contentType = 'parade_onepage';
       }
-      $nids = \Drupal::entityQuery('node')->condition('type', $contentType)->execute();
+
       $batch = [
-        'title' => t('Generating thumbnails...'),
+        'title' => t('Generating thumbnails.'),
         'init_message' => t('Initializing.'),
         'progress_message' => t('Completed @current of @total.'),
         'operations' => [
           [
             '\Drupal\parade_content_lister\ParadeContentListerRunBatch::generateImages',
-            [$nids],
+            [$contentType],
           ],
         ],
         'finished' => '\Drupal\parade_content_lister\ParadeContentListerRunBatch::generateImageFinished',
