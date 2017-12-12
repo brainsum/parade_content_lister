@@ -273,10 +273,11 @@ class CardThumbnailBuilder {
     }
 
     $languages = $defaultNode->getTranslationLanguages();
-    foreach ($languages as $language) {
-      $node = $defaultNode->getTranslation($language->getId());
+    foreach ($languages as $langcode => $language) {
+      $node = $defaultNode->getTranslation($langcode);
       $this->updateNode($node);
       $node->setNewRevision(FALSE);
+      $node->doNotForceNewRevision = TRUE;
       $node->save();
     }
     return TRUE;
